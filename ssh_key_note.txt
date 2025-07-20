@@ -13,3 +13,12 @@ Host github.com
 HostName github.com
 PreferredAuthentications publickey
 IdentityFile ~/.ssh/your_key_name
+
+(
+gemini's config
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/你的新私鑰檔案名稱
+  IdentitiesOnly yes
+)
