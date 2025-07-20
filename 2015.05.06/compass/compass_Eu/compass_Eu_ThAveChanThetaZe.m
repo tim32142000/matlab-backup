@@ -1,0 +1,74 @@
+clear all
+tic
+tau = 0.0001 ;
+tot_time = 1000 ;
+tot_ts = tot_time/tau ;
+w_ext = 2*pi ;
+tor_ext_ts = 2*pi/w_ext/tau ;
+gamma = 6.0 ;
+b1 = 36.0 ;
+b2 = 118.7 ;
+Odiv = 90 ; % divide a circle to how many part
+
+%{
+theta(1) = 0.69*pi ; % -0.5 and 0.5
+theta(2) = theta(1) + w(1)*tau ;
+%}
+gata2 = gamma*tau/2.0 ;
+tausq = tau*tau ;
+wetau = w_ext*tau ;
+for n = 1:1
+    b2=b2 ;
+    figure; hold on;
+    for k = 1:Odiv
+        fprintf('Start Odiv=%3.0f of %3.0f\n',k,Odiv)
+        clear w theta theta_n
+        w = zeros(1, (tot_ts+1)) ;
+        theta = zeros(1, (tot_ts+1)) ;
+        theta_ave = zeros(1,tot_time) ;
+        w(1) = 0.0 ;
+        w(2) = 0.0 ;
+        theta(1) = (k-1)/Odiv*2*pi ;
+        theta(2) = theta(1) + w(1)*tau ;
+        jj = 0 ;
+        for m = 1:tot_ts
+            theta(m+2) = (theta(m)*(gata2-1.0) + theta(m+1)*2.0 + tausq*(-b1*sin(theta(m+1) ) + b2*cos(theta(m+1) )*cos(m*wetau) ) )/(1+gata2) ;
+            if(mod(m,tor_ext_ts)==0 )
+                jj = jj + 1 ;
+                theta_ave(jj) = mean(theta(m+2-tor_ext_ts+1:m+2) ) ;
+                if( floor( (theta_ave(jj) + pi)/(2*pi) ) ~= 0)
+                    nc = floor( (theta_ave(jj) + pi)/(2*pi) ) ;
+                    theta_ave(jj) = theta_ave(jj) - nc*2*pi ;
+                end
+            end
+        end
+    plot(theta(1)/pi*180*ones(1,300),theta_ave(701:1000)./pi.*180,'LineStyle','none','Marker','.','MarkerSize',6 )
+    %figure; plot(theta(k,(500/tau):(700/tau)-1),w(k,500/tau:(700/tau)-1),'.')
+    end
+    hold off;
+    xlim([0 360]);ylim([-180 180])
+    xlabel('\theta_0(\circ)')
+    ylabel('\theta_n(\circ)')
+    title(['B_2=', num2str(b2)])
+end
+runtime = toc
+%{
+figure; plot(theta(1,(200/tau):(401/tau)-1),w(1,200/tau:(401/tau)-1),...
+    theta(2,(200/tau):(401/tau)-1),w(2,200/tau:(401/tau)-1),...
+    theta(3,(200/tau):(401/tau)-1),w(3,200/tau:(401/tau)-1),...
+    theta(4,(200/tau):(401/tau)-1),w(4,200/tau:(401/tau)-1),...
+    theta(5,(200/tau):(401/tau)-1),w(5,200/tau:(401/tau)-1),...
+    theta(6,(200/tau):(401/tau)-1),w(6,200/tau:(401/tau)-1),...
+    theta(7,(200/tau):(401/tau)-1),w(7,200/tau:(401/tau)-1),...
+    theta(8,(200/tau):(401/tau)-1),w(8,200/tau:(401/tau)-1),...
+    'LineStyle','none','Marker','.','MarkerSize',4)
+axis([-pi pi -15 15])
+%}
+%{
+%[t,yy]=ode45(@compass_odefn,[0 101],[0.5 1],[],B1,B2); 
+figure%,plot(t,yy(:,1)), hold on
+plot(0:tau:(tot_time+tau),theta,'b')
+%figure,plot(t,yy(:,2)), hold on, plot(0:tau:tot_time,y(:,2),'r')
+figure; plot(theta((80/tau):(601/tau)-1),w(80/tau:(601/tau)-1),'.')
+%plot(yy(7000:,1),yy(7000:,2) );
+%}

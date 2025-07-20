@@ -1,0 +1,39 @@
+#Chaotic Compass: d^2 
+
+the0=0.
+ome0=0.
+alp=Pi/2
+gam=6.
+B1=36.
+B2=90.
+Tfinal=30.
+
+ 
+sol = NDSolve[{B2 Cos[2 \[Pi] t] Sin[alp - \[Theta][t]] + 
+     B1 Sin[\[Theta][t]] + 
+     gam Derivative[1][\[Theta]][t] + \[Theta]''[t] == 0, \[Theta][0] == the0, 
+   Derivative[1][\[Theta]][0] == ome0}, \[Theta], {t, 0, Tfinal}]
+Plot[Evaluate[\[Theta][t] /. First[sol]], {t, 0, Tfinal},  PlotRange -> All]
+
+ParametricPlot[ Evaluate[{\[Theta][t], \[Theta]'[t]/5} /. sol], {t, 3 Tfinal/4, 
+  Tfinal}, PlotRange -> {{-1.2 Pi, 1.2 Pi}, Automatic}, 
+ AxesLabel -> {Style[\[Theta], Large], Style[d\[Theta]/dt, Large]}, PlotStyle -> Orange]
+
+Manipulate[ Module[{Tfinal = 40, \[Theta], t}, 
+  Plot[Evaluate[First[\[Theta][t] /. 
+      NDSolve[{B2 Cos[2 \[Pi] t] Sin[alp - \[Theta][t]] + 
+          B1 Sin[\[Theta][t]] +  gam Derivative[1][\[Theta]][t] + \[Theta]''[t] == 
+         0, \[Theta][0] == the0, Derivative[1][\[Theta]][0] == ome0}, \[Theta], {t, 0, Tfinal}]]], {t, 0, Tfinal}, 
+   AxesLabel -> {Style[time, Large], Style[theta, Large]}, 
+   PlotRange -> {{0, Tfinal}, {-Pi, Pi}}]], {B2, 80, 140}, {alp, 0, 2 Pi},{the0, -Pi, Pi}, {ome0, -2, 2}]
+
+
+Manipulate[ Module[{Tfinal = 50, \[Theta], t}, 
+  ParametricPlot[
+   Evaluate[{\[Theta][t], \[Theta]'[t]}/5 /. 
+     NDSolve[{B2 Cos[2 \[Pi] t] Sin[alp - \[Theta][t]] + B1 Sin[\[Theta][t]] + 
+     gam Derivative[1][\[Theta]][t] + \[Theta]''[t] == 0, \[Theta][0] == the0, 
+     Derivative[1][\[Theta]][0] == ome0}, \[Theta], {t, 0,  Tfinal}]], {t, 3/4 Tfinal, Tfinal}, 
+   AxesLabel -> {Style[theta, Large], Style[dtheta/dt, Large]}, 
+   PlotRange -> {{-3, 3}, {-3, 3}}]],
+ {B2, 80, 140}, {alp, 0, 2 Pi},{the0, -Pi, Pi}, {ome0, -2, 2}]

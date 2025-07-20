@@ -1,0 +1,4 @@
+par r=2
+x(t+1)=r*x*(1-x)
+ini x=0.1
+done
