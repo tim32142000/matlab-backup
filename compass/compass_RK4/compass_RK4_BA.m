@@ -1,5 +1,4 @@
 % Calculating Basin of Attraction(BA) by RK4 method
-% last modified: 2015.05.12
 
 clear all
 tic

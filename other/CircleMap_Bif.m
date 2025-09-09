@@ -1,4 +1,3 @@
-% last revised: 2015.03.12
 clear all
 tot_steps = 2000 ;
 k_min = 2.0 ;

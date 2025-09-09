@@ -1,4 +1,3 @@
-% last modified: 2015.06.23
 
 if ismember({'Odiv','tot_ts','b2_per_ts','tau','theta','b1','b2','wetau','delta'},who) == ones(1,9) % check the existence of needed variables
     t_vid_st = 100;

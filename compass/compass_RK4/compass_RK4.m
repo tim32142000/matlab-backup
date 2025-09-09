@@ -1,6 +1,4 @@
 % numerical method: RK4
-% last modified: 2015.11.03
-
 
 % solve compass system's ODEs with numerical method: RK4
 clear all

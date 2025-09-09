@@ -1,5 +1,4 @@
 % Plot Theta_N versus Theta_0
-% Latest revision Y:2014 M:10 D:3
 
 clear all
 tic

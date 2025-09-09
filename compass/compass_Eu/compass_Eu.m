@@ -1,5 +1,4 @@
 % numerical method: Euler
-% last modified: 2015.12.09
 
 clear all
 tic

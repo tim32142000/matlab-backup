@@ -1,5 +1,4 @@
 % Calculating Basin of Attraction(BA) by Euler method
-% last modified: 2014.11.07
 
 clear all
 tic
