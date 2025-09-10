@@ -1,4 +1,4 @@
-% Calculating Basin of Attraction(BA) with Monte Carlo initial condition input by RK4 method
+% Calculating Basin of Attraction(BA) with random initial condition by RK4 method
 
 clear all
 tic
